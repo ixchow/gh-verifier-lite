@@ -5,7 +5,7 @@
 if (process.argv.length !== 4) {
 	console.error("Usage:\n\tverifier.js <wordlist> <program.js>\n"
 	+ "Checks that program.js prints (via console.log) all the words in\n"
-	+ " the given wordlist, separated by newlines, exactly once.");
+	+ " the given wordlist, ending with newlines, exactly once.");
 	process.exit(1);
 }
 
