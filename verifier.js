@@ -14,11 +14,11 @@ const fs = require('fs');
 let wordlist = {};
 fs.readFileSync(process.argv[2], 'utf8').split(/\n/).forEach(function(word){
 	if (word === '') return;
-	if (word in wordlist) {
-		console.error("Wordlist... DUPLICATES a word.");
+	if (("." + word) in wordlist) {
+		console.error("Wordlist... DUPLICATES a word ('" + word + "').");
 		process.exit(1);
 	}
-	wordlist[word] = true;
+	wordlist["." + word] = true;
 });
 
 const print = console.log;
@@ -26,8 +26,8 @@ const print = console.log;
 console.log = function() {
 	Array.from(arguments).forEach(function(arg){
 		(arg + "").split('\n').forEach(function(word){
-			if (word in wordlist) {
-				delete wordlist[word];
+			if (("." + word) in wordlist) {
+				delete wordlist["." + word];
 			} else {
 				console.error("Word '" + word + "' is invalid or duplicate.");
 				process.exit(1);
@@ -42,7 +42,7 @@ const func = new Function('', program);
 func();
 
 for (var word in wordlist) {
-	console.error("Word '" + word + "' was missed.");
+	console.error("Word '" + word.substr(1) + "' was missed.");
 	process.exit(1);
 }
 
